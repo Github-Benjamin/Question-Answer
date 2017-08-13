@@ -10,8 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Created By            : Benjamin
-Date                  : 2017-08-13 10:58:11
+Date: 2017-08-13 10:58:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,6 +19,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for question
 -- ----------------------------
 DROP TABLE IF EXISTS `question`;
+create database question;
+use question;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
