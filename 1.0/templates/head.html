@@ -1,0 +1,41 @@
+$def with(con='')
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Python问答</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<script type="text/javascript" src="/static/js/jquery-3.1.1.min.js" ></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="nav navbar-default" role="navigotion">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+					<a href="/" class="navbar-brand">
+						<img src="/static/img/logo.png" style="height: 50px;margin-top: -15px;"/>
+					</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">首页</a></li>
+						<li><a href="/post">提问</a></li>
+						<li><a href="/user">个人中心</a></li>
+						<li><a href="/logout">注销登录</a></li>
+						<li><a href="#">测试账号:Benjamin  密码:123</a></li>
+					</ul>
+					<div class="navbar-form navbar-right">
+						<a href="#" class="navbar-link">登录</a>/
+						<a href="#" class="navbar-link">注册</a>
+						<input type="text" class="form-control" placeholder="请输入关键字"/>
+						<button class="btn btn-">搜 索</button>
+					</div>
+				</div>
+			</div>
+		</nav>
+$:con
