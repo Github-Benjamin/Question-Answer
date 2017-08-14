@@ -3,11 +3,13 @@
 #  * Created by Benjamin on 2017/7/17
 #  */
 import web
+import time
 from main import notfound,internalerror
 
 urls = (
     '/', 'Index',
     '/post','Post',
+    '/put','Put',
     '/user','User',
     '/question/(\d+)\.html', 'Question',
     '/login','Login',
@@ -34,9 +36,33 @@ class Post(object):
         else:
             return render.reg(render.head())
 
+class Put(object):
+    def POST(self):
+        username = session.username
+        if username:
+            data = web.input()
+            title = data.get('title')
+            content = data.get('content')
+            if (title and content):
+                # data = db.query("insert into question (id,title,content,fbtime,click,keywords,username) VALUES (NULL ,%s,%s,%s,%s,%s,%s)"%(title,content,time.strftime('%Y-%m-%d'),1,'Keywords',1))
+                data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','%s','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 20, u'关键词',username))
+                if data:
+                    data = db.query("SELECT * FROM question ORDER BY id DESC LIMIT 1 ")
+                    raise web.seeother('/question/%s.html' % data[0].get('id'))
+                else:
+                    return render.head(username,'<br><h1>服务器异常，提交问题失败</h1>')
+            else:
+                return render.head(username, '<br><h1>问题或描述为空，请重新输入数据</h1>')
+        else:
+            raise web.seeother('/')
+
 class User(object):
     def GET(self):
-        return render.head(session.username,'<h1>用户个人中心</h1>')
+        username = session.username
+        if username:
+            return render.head(username, '<h1>用户个人中心</h1>')
+        else:
+            raise web.seeother('/')
 
 class Question:
 	def GET(self,s):
@@ -58,9 +84,7 @@ class Login(object):
         username = data.get('username')
         password = data.get('password')
         userdata = db.query("select * from user where username='%s' and password='%s'" %(username,password))
-        print userdata
         if userdata:
-            print 1111
             session.username = username
             raise web.seeother('/')
         else:
