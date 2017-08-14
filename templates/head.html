@@ -1,4 +1,4 @@
-$def with(con='')
+$def with(username='',con='')
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,16 +25,21 @@ $def with(con='')
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="/">首页</a></li>
 						<li><a href="/post">提问</a></li>
-						<li><a href="/user">个人中心</a></li>
-						<li><a href="/logout">注销登录</a></li>
-						<li><a href="#">测试账号:Benjamin  密码:123</a></li>
+						$if username:
+							<li><a href="/user">个人中心</a></li>
+							<li><a href="/logout">注销登录</a></li>
 					</ul>
-					<div class="navbar-form navbar-right">
-						<a href="#" class="navbar-link">登录</a>/
-						<a href="#" class="navbar-link">注册</a>
-						<input type="text" class="form-control" placeholder="请输入关键字"/>
-						<button class="btn btn-">搜 索</button>
-					</div>
+						<div class="navbar-form navbar-right">
+							$if username:
+								<a href="#" class="navbar-link">用户名：$username</a>&#8195;&#8195;
+								<input type="text" class="form-control" placeholder="请输入关键字"/>
+								<button class="btn btn-">搜 索</button>
+							$else:
+								<a href="/login" class="navbar-link">登录</a>/
+								<a href="/reg" class="navbar-link">注册</a>
+								<input type="text" class="form-control" placeholder="请输入关键字"/>
+								<button class="btn btn-">搜 索</button>
+						</div>
 				</div>
 			</div>
 		</nav>
