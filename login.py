@@ -44,7 +44,6 @@ class Put(object):
             title = data.get('title')
             content = data.get('content')
             if (title and content):
-                # data = db.query("insert into question (id,title,content,fbtime,click,keywords,username) VALUES (NULL ,%s,%s,%s,%s,%s,%s)"%(title,content,time.strftime('%Y-%m-%d'),1,'Keywords',1))
                 data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','%s','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 20, u'关键词',username))
                 if data:
                     data = db.query("SELECT * FROM question ORDER BY id DESC LIMIT 1 ")
@@ -60,19 +59,25 @@ class User(object):
     def GET(self):
         username = session.username
         if username:
-            return render.head(username, '<h1>用户个人中心</h1>')
+            data = db.query("SELECT * FROM question where username='%s'"%str(username))
+            if data:
+                return render.index(render.head(username), data)
+            else:
+                return render.head(username, '<h3>%s的用户个人中心，暂无提问数据！</h3>'%str(username))
         else:
             raise web.seeother('/')
 
-class Question:
-	def GET(self,s):
-		data = db.query("select * from question where id=%s" %s)
-		if not data:
-			return render.head(None,'<h1>该问题不存在或已被删除</h1>')
-		else:
-			return render.question(render.head(),data[0])
-	def POST(self,s):
-		return render.head(None,'<h1>回复功能已经关闭,请稍后再试</h1>')
+class Question(object):
+    def GET(self,s):
+        username = session.username
+        data = db.query("select * from question where id='%s'"%s)
+        if not data:
+            return render.head(username,'<h1>该问题不存在或已被删除</h1>')
+        else:
+            return render.question(render.head(username),data[0])
+    def POST(self,s):
+        username = session.username
+        return render.head(username,'<h1>回复功能已经关闭,请稍后再试</h1>')
 
 class Login(object):
     def GET(self):
@@ -102,13 +107,14 @@ class Reg(object):
         if (username and password and password1 and tel):
             if password != password1:
                 return render.head(username=None, con='<h1>两次密码输入不一致，请重新输入</h1>')
-            data = db.query("select * from user where username = %s" % username)
+            data = db.query("select * from user where username = '%s'" % username)
             if data:
                 return render.head(username=None, con='<br><h1>用户已注册</h1>')
-            db.query("insert into user(id,username,password,tel) VALUES (NULL,%s,%s,%s)"%(username,password,tel))
+            ip = web.ctx.ip
+            db.query("insert into user(id,username,password,tel,ip) VALUES (NULL,'%s','%s','%s','%s')"%(username,password,tel,ip))
             session.user = username
             username = session.user
-            return render.head(username,'<br><h1>注册成功</h1>')
+            return  render.head(username,'<br><h1>注册成功</h1>')
         else:
             return render.head(username=None, con='<br><h1>数据不全，请重新输入</h1>')
 
