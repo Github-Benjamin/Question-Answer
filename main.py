@@ -41,7 +41,7 @@ def RegEmail(useremail,usermd5url):
     mail_info = {
         "hostname": "smtp.qq.com",
         "username": "benjamin_v@qq.com",
-        "password": "tavplxghnvihbgii",
+        "password": "tavplxghnxxxxxxxx",
         "from": "benjamin_v@qq.com",
         "to": "%s"%useremail,
         "mail_subject": "WelCome to Python Question&Answer",
