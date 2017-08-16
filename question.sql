@@ -2,16 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50719
+Source Server Version : 50718
 Source Host           : 127.0.0.1:3306
 Source Database       : question
 
 Target Server Type    : MYSQL
-Target Server Version : 50719
+Target Server Version : 50718
 File Encoding         : 65001
 
-Created By            : Benjamin
-Date                  : 2017-08-13 10:58:11
+Date: 2017-08-16 22:02:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,33 +19,35 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for question
 -- ----------------------------
 DROP TABLE IF EXISTS `question`;
-create database question;
-use question;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
+  `content` text,
   `fbtime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `click` varchar(255) DEFAULT NULL,
+  `click` int(255) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question
 -- ----------------------------
-INSERT INTO `question` VALUES ('1', '1', '1', '2017-08-12 22:21:05', '1', 'Keyword1','tester1');
-INSERT INTO `question` VALUES ('2', '2', '2', '2017-08-12 22:21:05', '2', 'Keyword2','tester2');
-INSERT INTO `question` VALUES ('3', '3', '3', '2017-08-12 22:21:06', '3', 'Keyword3','tester3');
-INSERT INTO `question` VALUES ('4', '4', '4', '2017-08-12 22:21:06', '4', 'Keyword4','tester4');
-INSERT INTO `question` VALUES ('5', '5', '5', '2017-08-12 22:21:06', '5', 'Keyword5','tester5');
-INSERT INTO `question` VALUES ('6', '6', '6', '2017-08-12 22:21:07', '6', 'Keyword6','tester6');
-INSERT INTO `question` VALUES ('7', '7', '7', '2017-08-12 22:21:09', '7', 'Keyword7','tester7');
-INSERT INTO `question` VALUES ('8', '8', '8', '2017-08-12 22:21:10', '8', 'Keyword8','tester8');
-INSERT INTO `question` VALUES ('9', '9', '9', '2017-08-12 22:21:10', '9', 'Keyword9','tester9');
-INSERT INTO `question` VALUES ('10', '10', '10', '2017-08-12 22:21:13', '10', 'Keyword10','tester10');
-INSERT INTO `question` VALUES ('11', '123', '123', '2017-08-12 00:00:00', '20', 'Keyword11','tester11');
+INSERT INTO `question` VALUES ('1', '1', '1', '2017-08-16 17:49:46', '5', 'Keyword1', 'tester1');
+INSERT INTO `question` VALUES ('2', '2', '2', '2017-08-12 22:21:05', '2', 'Keyword2', 'tester2');
+INSERT INTO `question` VALUES ('3', '3', '3', '2017-08-12 22:21:06', '3', 'Keyword3', 'tester3');
+INSERT INTO `question` VALUES ('4', '4', '4', '2017-08-12 22:21:06', '4', 'Keyword4', 'tester4');
+INSERT INTO `question` VALUES ('5', '5', '5', '2017-08-12 22:21:06', '5', 'Keyword5', 'tester5');
+INSERT INTO `question` VALUES ('6', '6', '6', '2017-08-12 22:21:07', '6', 'Keyword6', 'tester6');
+INSERT INTO `question` VALUES ('7', '7', '7', '2017-08-12 22:21:09', '7', 'Keyword7', 'tester7');
+INSERT INTO `question` VALUES ('8', '8', '8', '2017-08-12 22:21:10', '8', 'Keyword8', 'tester8');
+INSERT INTO `question` VALUES ('9', '9', '9', '2017-08-16 10:14:22', '999', 'Keyword9', 'tester9');
+INSERT INTO `question` VALUES ('10', '10', '10', '2017-08-12 22:21:13', '10', 'Keyword10', 'tester10');
+INSERT INTO `question` VALUES ('12', 'Benjamin的提问数据', '123', '2017-08-16 17:29:08', '59', '关键词', 'Benjamin');
+INSERT INTO `question` VALUES ('16', '1', '1', '2017-08-16 17:28:46', '114', 'Benjamin', 'Benjamin');
+INSERT INTO `question` VALUES ('17', 'mysql修改、删除数据记录', 'mysql数据库相信很多人都接触过，在进行mysql数据库的操作的时候，有人就希望删除或者修改mysql数据库中的一些数据记录。DELETE 和UPDATE 语句令我们能做到这一点。\r\n\r\n用update修改记录\r\n\r\nUPDATE tbl_name SET 要更改的列\r\n\r\nWHERE 要更新的记录\r\n\r\n这里的 WHERE 子句是可选的，因此如果不指定的话，表中的每个记录都被更新。\r\n\r\n例如，在pet表中，我们发现宠物Whistler的性别没有指定，因此我们可以这样修改这个记录：\r\n\r\nmysql> update pet set sex=’f’ where name=” Whistler”;', '2017-08-16 17:13:05', '41', 'Benjamin', 'Benjamin');
+INSERT INTO `question` VALUES ('18', 'HuaWei', '发起提问\r\n', '2017-08-16 17:13:12', '8', 'huawei', 'huawei');
+INSERT INTO `question` VALUES ('19', 'Jack的提问', 'Jack的提问', '2017-08-16 17:53:10', '19', 'Jack', 'Jack');
 
 -- ----------------------------
 -- Table structure for user
@@ -56,13 +57,16 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `tel` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Benjamin', '123','110','127.0.0.1');
+INSERT INTO `user` VALUES ('1', 'Benjamin', '123', 'Benjamin@qq.com', '127.0.0.1', '1');
+INSERT INTO `user` VALUES ('2', 'Huawei', '123', 'Huawei@qq.com', '192.168.29.99', '1');
+INSERT INTO `user` VALUES ('3', 'Justin', '123', 'Justin@qq.com', '127.0.0.1', '1');
 SET FOREIGN_KEY_CHECKS=1;

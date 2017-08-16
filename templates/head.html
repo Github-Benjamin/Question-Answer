@@ -27,19 +27,22 @@ $def with(username='',con='')
 						<li><a href="/post">提问</a></li>
 						$if username:
 							<li><a href="/user">个人中心</a></li>
-							<li><a href="/logout">注销登录</a></li>
 					</ul>
+
+					<form action="/search" method="get">
 						<div class="navbar-form navbar-right">
 							$if username:
-								<a href="#" class="navbar-link">用户名：$username</a>&#8195;&#8195;
-								<input type="text" class="form-control" placeholder="请输入关键字"/>
+								<a href="javascript:;" class="navbar-link">用户名：$username</a>&nbsp;&nbsp;
+								<a href="/logout" class="navbar-link">注销登录&nbsp;&nbsp;&nbsp;</a>
+								<input type="text" name="kw" class="form-control" required="required" placeholder="请输入关键字"/>
 								<button class="btn btn-">搜 索</button>
 							$else:
 								<a href="/login" class="navbar-link">登录</a>/
 								<a href="/reg" class="navbar-link">注册</a>
-								<input type="text" class="form-control" placeholder="请输入关键字"/>
+								<input type="text" name="kw" class="form-control" required="required" placeholder="请输入关键字"/>
 								<button class="btn btn-">搜 索</button>
 						</div>
+					</form>
 				</div>
 			</div>
 		</nav>
