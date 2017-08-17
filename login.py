@@ -8,8 +8,6 @@ from main import RegEmail,validateEmail,CheckChina
 
 from main import prpcrypt
 pc = prpcrypt('keyskeyskeyskeys')
-e = pc.encrypt("1@qq.com")
-d = pc.decrypt("1a960d7ab3c155b12fd3ed9b57bb2d7f")
 
 urls = (
     '/', 'Index',
