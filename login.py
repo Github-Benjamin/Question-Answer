@@ -53,7 +53,8 @@ class Put(object):
 
                 content=content.replace('<','&#60;').replace('>','&#62;').replace('\r','<br>').replace(' ','&nbsp;').replace('	','&nbsp;&nbsp;&nbsp;&nbsp;').replace("'","&#39;").replace('"','&#34;')
 
-                data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','''%s''','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 1, username,username))
+                times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+                data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','''%s''','%s',%s,'%s','%s')" % (title, content,times, 1, username,username))
                 if data:
                     data = db.query("SELECT * FROM question ORDER BY id DESC LIMIT 1 ")
                     raise web.seeother('/question/%s.html' % data[0].get('id'))
