@@ -37,28 +37,28 @@ class prpcrypt():
         plain_text = cryptor.decrypt(a2b_hex(text))
         return plain_text.rstrip('\0')
 
-def RegEmail(useremail,usermd5url):
+def RegEmail(useremail,username,ticket,usermd5url):
     mail_info = {
         "hostname": "smtp.qq.com",
         "username": "benjamin_v@qq.com",
-        "password": "tavplxghnxxxxxxxx",
+        "password": "tavplxghnxxxxxx",
         "from": "benjamin_v@qq.com",
         "to": "%s"%useremail,
         "mail_subject": "WelCome to Python Question&Answer",
         "mail_text": '''<html>
     <head><meta charset="UTF-8"></head>
     <body>
-        <br>
         <h3>&#8195;WelCome to Python Question&Answer</h3>
-        <br><br>
-        <p>&#8195;&#8195;&#8195;感谢您注册Python问答系统，Activate Link：<a href="http://127.0.0.1:8080/activation?email=%s&ticket=Benjamin" style="text-decoration:none">点击激活账号</a></p>
-        <p>&#8195;&#8195;&#8195;Click Activate Link：<a href="http://127.0.0.1:8080/activation?email=%s&ticket=Benjamin" style="text-decoration:none">http://127.0.0.1:8080/activation?email=%s&ticket=Benjamin</a></p>
+        <br>
+        <p>&#8195;&#8195;&#8195;用户名：%s</p>
+        <p>&#8195;&#8195;&#8195;感谢您注册Python问答系统，Click Link：<a href="http://127.0.0.1:8080/activation?email=%s&ticket=%s" style="text-decoration:none">点击激活账号</a></p>
+        <p>&#8195;&#8195;&#8195;Activate Link：<a href="http://127.0.0.1:8080/activation?email=%s&ticket=%s" style="text-decoration:none">http://127.0.0.1:8080/activation?email=%s&ticket=%s</a></p>
         <br><img>&#8195;&#8195;&#8195;如果以上链接无法点击，请联系开发者企鹅：<a href="tencent://message/?uin=350105629&Site=&Menu-=yes" style="text-decoration:none"><img src="http://www.wzsky.net/img2015/uploadimg/20150303/1022549.png" style="height: 42px;vertical-align:middle" alt="icon">350105629</a></p>
         &#8195;&#8195;&#8195;----------------------------
         <br><br>
         &#8195;&#8195;&#8195;<img src="http://v1.qzone.cc/avatar/201507/15/18/33/55a636e158719534.jpg!200x200.jpg" alt="350105629" style="vertical-align:middle;height: 60px"> Author： Benjamin</p>
     </body>
-</html>'''%(usermd5url,usermd5url,usermd5url),
+</html>'''%(username,usermd5url,ticket,usermd5url,ticket,usermd5url,ticket),
     }
 
     smtp = SMTP_SSL(mail_info["hostname"])

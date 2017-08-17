@@ -8,7 +8,7 @@ from main import RegEmail,validateEmail,CheckChina
 
 from main import prpcrypt
 pc = prpcrypt('keyskeyskeyskeys')
-e = pc.encrypt("Benjamin@qq.com")
+e = pc.encrypt("1@qq.com")
 d = pc.decrypt("1a960d7ab3c155b12fd3ed9b57bb2d7f")
 
 urls = (
@@ -41,7 +41,7 @@ class Post(object):
         if username:
             return render.put(render.head(session.username))
         else:
-            return render.reg(render.head())
+            return render.login(render.head())
 
 class Put(object):
     def POST(self):
@@ -97,7 +97,7 @@ class Search(object):
         data = web.input()
         kw = data.get('kw')
         if kw:
-            data = db.query("select * from question where title=%s"%kw)
+            data = db.query("select * from question where title like '%s%s%s' or content like '%s%s%s'"%('%',kw,'%','%',kw,'%'))
             if data:
                 return render.index(render.head(username), data)
             else:
@@ -114,7 +114,10 @@ class Login(object):
         data = web.input()
         username = data.get('username')
         password = data.get('password')
-        userdata = db.query("select * from user where username='%s' and password='%s'" %(username,password))
+        if validateEmail(username):
+            userdata = db.query("select * from user where email='%s' and password='%s'" % (username, password))
+        else:
+            userdata = db.query("select * from user where username='%s' and password='%s'" %(username,password))
         if userdata:
             status = userdata[0].get('status')
             if status==1:
@@ -159,9 +162,10 @@ class Reg(object):
 
             ip = web.ctx.ip
             usermd5url=pc.encrypt(email)
-
-            # RegEmail(email, usermd5url)
-            db.query("insert into user(id,username,password,email,ip) VALUES (NULL,'%s','%s','%s','%s')"%(username,password,email,ip))
+            ticket=pc.encrypt(username)
+            RegEmail(email,username,ticket,usermd5url)
+            times = str(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+            db.query("insert into user(id,username,password,email,regtime,ip) VALUES (NULL,'%s','%s','%s','%s','%s')"%(username,password,email,times,ip))
 
             return  render.head(username=None,con='<br><h1>注册邮件已发送，请通过邮件激活账号。</h1>')
 
@@ -178,14 +182,19 @@ class Activation(object):
         if (email and ticket):
 
             # email解密
-            email = pc.decrypt(email)
-            data = db.query("select * from user where email='%s'"%email)
+            try:
+                email = pc.decrypt(email)
+                ticket = pc.decrypt(ticket)
+            except:
+                return '非法数据'
+            data = db.query("select * from user where email='%s' and username='%s'"%(email,ticket))
             if data:
                 data = data[0].get('status')
                 if data:
                     return render.head(username=None, con='<br><h1>账号已激活，请勿重复激活</h1>')
                 else:
-                    db.query("update user  set status='%s' where email='%s'" % (1, email))
+                    times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+                    db.query("update user  set status='%s',activationtime='%s' where email='%s'" % (1,times,email))
                     return render.head(username=None, con='<br><h1>账号激活成功</h1>')
             else:
                 return '账号不存在'
