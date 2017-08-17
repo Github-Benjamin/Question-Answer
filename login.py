@@ -160,7 +160,7 @@ class Reg(object):
             ip = web.ctx.ip
             usermd5url=pc.encrypt(email)
 
-            RegEmail(email, usermd5url)
+            # RegEmail(email, usermd5url)
             db.query("insert into user(id,username,password,email,ip) VALUES (NULL,'%s','%s','%s','%s')"%(username,password,email,ip))
 
             return  render.head(username=None,con='<br><h1>注册邮件已发送，请通过邮件激活账号。</h1>')
