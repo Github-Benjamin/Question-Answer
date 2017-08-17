@@ -31,17 +31,17 @@ class Index(object):
         data = db.query("SELECT * FROM question ORDER BY id DESC LIMIT 10")
         username = session.username
         if username:
-            return render.index(render.head(username),data)
+            return render.index(render.head(username,index='class=active'),data)
         else:
-            return render.index(render.head(),data)
+            return render.index(render.head(index='class=active'),data)
 
 class Post(object):
     def GET(self):
         username = session.username
         if username:
-            return render.put(render.head(session.username))
+            return render.put(render.head(session.username,post='class=active'))
         else:
-            return render.login(render.head())
+            return render.login(render.head(post='class=active'))
 
 class Put(object):
     def POST(self):
@@ -50,8 +50,12 @@ class Put(object):
             data = web.input()
             title = data.get('title')
             content = data.get('content')
+            print type(content)
             if (title and content):
-                data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','%s','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 1, username,username))
+
+                content=content.replace('<','&#60;').replace('>','&#62;').replace('\r','<br>').replace(' ','&nbsp;').replace('	','&nbsp;&nbsp;&nbsp;&nbsp;').replace("'","&#39;").replace('"','&#34;')
+
+                data = db.query("insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','''%s''','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 1, username,username))
                 if data:
                     data = db.query("SELECT * FROM question ORDER BY id DESC LIMIT 1 ")
                     raise web.seeother('/question/%s.html' % data[0].get('id'))
@@ -68,9 +72,9 @@ class User(object):
         if username:
             data = db.query("SELECT * FROM question where username='%s'"%str(username))
             if data:
-                return render.index(render.head(username), data)
+                return render.index(render.head(username,user='class=active'), data)
             else:
-                return render.head(username, '<h3>%s的用户个人中心，暂无提问数据！</h3>'%str(username))
+                return render.head(username, '<h3>%s的用户个人中心，暂无提问数据！</h3>'%str(username),user='class=active')
         else:
             raise web.seeother('/')
 
@@ -116,10 +120,19 @@ class Login(object):
         password = data.get('password')
         if validateEmail(username):
             userdata = db.query("select * from user where email='%s' and password='%s'" % (username, password))
+            try:
+                userdata = userdata[0]
+                status = userdata.get('status')
+                username = userdata.get('username')
+            except:
+                status = None
         else:
             userdata = db.query("select * from user where username='%s' and password='%s'" %(username,password))
+            try:
+                status = userdata[0].get('status')
+            except:
+                status = None
         if userdata:
-            status = userdata[0].get('status')
             if status==1:
                 session.username = username
                 raise web.seeother('/')
@@ -229,6 +242,7 @@ if __name__ == "__main__":
 
     app.run()
 
+
 # web.config.debug = False
 # web.config.session_parameters['timeout'] = 10*60
 # app = web.application(urls, globals())
@@ -237,3 +251,4 @@ if __name__ == "__main__":
 # db = web.database(dbn='mysql', host='127.0.0.1', port=3306, user='root', pw='', db='question', charset='utf8')
 # session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'username': None})
 # app = app.wsgifunc()
+

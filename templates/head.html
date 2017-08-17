@@ -1,4 +1,4 @@
-$def with(username='',con='')
+$def with(username='',con='',index='',post='',user='')
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,10 +23,10 @@ $def with(username='',con='')
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="/">首页</a></li>
-						<li><a href="/post">提问</a></li>
+						<li $index><a href="/">首页</a></li>
+						<li $post><a href="/post">提问</a></li>
 						$if username:
-							<li><a href="/user">个人中心</a></li>
+							<li $user><a href="/user">个人中心</a></li>
 					</ul>
 
 					<form action="/search" method="get">
