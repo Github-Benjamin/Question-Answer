@@ -10,3 +10,11 @@
 
 3. PyCharm-Github-Git实现代码版本管理，公司与家庭代码同步（2017-8-17）
 
+
+
+#uWSGI项目部署简介：
+
+1. Py文件：application = web.application(urls,globals()).wsgifunc()
+2. 启动命令：uwsgi --http :8000 --module login
+
+备注：login为配置py文件名称
