@@ -12,7 +12,7 @@
 
 
 
-#uWSGI项目部署简介：
+# uWSGI项目部署简介：
 
 1. Py文件：application = web.application(urls,globals()).wsgifunc()
 2. 启动命令：uwsgi --http :8000 --module login
