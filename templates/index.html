@@ -1,31 +1,44 @@
-$def with(head,data)
+$def with(head,data,page='')
 $:head
-		<div style="height: 60px;"></div>
+		<div style="height: 10px"></div>
 		<div class="container-fluid">
-			<div class="col-md-9">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="list-group">
 				$for i in data:
 					<div class="list-group-item" style="border: 0;">
-						<a href="/question/$:(i.id).html" style="color: #0F0F0F;"><h4>$:i.title</h4></a>
+						<a href="/question/$:i.get('id')" style="color: #0F0F0F;"><h4>$:i.get('title')</h4></a>
 						<p class="text-muted">
-							<small>$:i.username 提问时间:$:i.fbtime</small>
+							<small>$:i.get('username') 提问时间:$:i.get('fbtime')</small>
 							<small class="pull-right">
-								点击量:<span class="badge">$:i.click</span>
+								点击量:<span class="badge">$:i.get('click')</span>
 							</small>
 						</p>
 						<p class="text-muted">
-							$:i.content[0:50]
+							$:i.get('content')[0:50]
 						</p>
 						<p>
-								
-					$for n in i.keywords.split(','):
-				  		<span class="badge">$:n</span>
+					$for n in i.get('keywords').split(','):
+						<span class="badge">$n</span>
 					</div>
 					<div style="border: 1px dashed #ddd;"></div>
 
 				</div>
+					<ul class="pagination pagination-sm">
+						$:page
+					</ul>
 			</div>
+
 		</div>
-		
+
+	<div style="height: 15px"></div>
+	<div class="footer navbar-fixed-bottom"  >
+		<ul class="list-inline text-center">
+			<li>Copyright ©2017.Benjamin Software All Rights Reserved.</li>
+		</ul>
+	</div>
+	<div style="height: 15px"></div>
+
 	</body>
 </html>
+
+

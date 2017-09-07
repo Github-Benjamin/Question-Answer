@@ -1,9 +1,10 @@
 $def with(head,data)
 $:head
-<div style="height: 20px;"></div>
+<div style="height: 60px;"></div>
 		<div class="container-fluid">
-			<div class="col-md-9  col-md-offset-1">
+			<div class="col-md-9">
 				<div class="list-group">
+			
 					<div class="list-group-item" style="border: 0;">
 						<h4>$:data.title</h4></a>
 						<p class="text-muted">
@@ -25,7 +26,7 @@ $:head
 			</div>
 		</div>
 
-<form class="container-fluid  col-md-offset-1" action="/question/$:(data.id)" method="post">
+<form class="container-fluid" action="/question/$:(data.id).html" method="post">
 	<div class="form-group">
 		<div class="col-md-5">
 			<textarea class="form-control" name="content" rows="5" placeholder="说出你的看法吧"></textarea>
@@ -37,12 +38,4 @@ $:head
 			<input class="btn-primary" type="submit" value="回复">
 		</div>
 	</div>
-
-	<div style="height: 15px"></div>
-	<div class="footer navbar-fixed-bottom"  >
-		<ul class="list-inline text-center">
-			<li>Copyright ©2017.Benjamin Software All Rights Reserved.</li>
-		</ul>
-	</div>
-	<div style="height: 15px"></div>
 </form>

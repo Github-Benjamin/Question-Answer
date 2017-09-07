@@ -12,9 +12,17 @@
 
 
 
-# uWSGI项目部署简介：
+# 1.Old_Version_Bak/文件夹下为粗略版项目，代码结果程序结构较为混乱，优化做的不够好
+# 2.主文件下为优化版本，简单优化前端界面排版，程序结构MTV模式开发
 
-1. Py文件：application = web.application(urls,globals()).wsgifunc()
-2. 启动命令：uwsgi --http :8000 --module login
+主要功能：
 
-备注：login为配置py文件名称
+	1.实现用户注册数据验证判断
+	
+	2.通过发用模板邮件激活账号，url可逆加密算法验证
+	
+	3.服务端通过Session验证判读，并保存已登录用户信息
+	
+	4.question/数据分页操作，page/数据分页操作
+	
+	5.对用户提交的数据实现字符过滤替换操作，防止JS注入
