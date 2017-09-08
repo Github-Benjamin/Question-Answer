@@ -110,7 +110,7 @@ def Activations(email,ticket):
 def Puts(title,content,username):
     times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     # 字符处理防止JS注入
-    content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ', '&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+    #content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ', '&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
     sql = "insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','%s','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 1, username, username)
     SelectMysql(sql)
     sql = "SELECT * FROM question WHERE title = '%s' and username = '%s' ORDER BY id DESC LIMIT 1"%(title,username)
@@ -131,7 +131,6 @@ def logins(username,password):
     else:
         return 'error'
 
-
 # 用户注册
 def Regs(username,password,password1,email,ip):
     data = CheckUserData(username,password,password1,email)
@@ -149,4 +148,33 @@ def Regs(username,password,password1,email,ip):
             SelectMysql(sql)
             return 1
     else:
+        return data
+
+# 用户HeaderTab选项设置，未调用
+def HeaderTab(pagename,username):
+    index = ''
+    post = ''
+    user = ''
+    if username:
+        if pagename=='index':
+            index = 'active'
+        if pagename=='post':
+            post = 'active'
+        if pagename=='user':
+            user = 'active'
+        data = '''
+        <li class ="%s"><a href="/">首页</a></li>
+        <li class ="%s"><a href ="/post">提问</a></li>
+        <li class ="%s"><a href ="/user">个人中心</a></li>
+         '''%(index,post,user)
+        return data
+    else:
+        if pagename=='index':
+            index = 'active'
+        if pagename=='post':
+            post = 'active'
+        data = '''
+        <li class ="%s"><a href="/">首页</a></li>
+        <li class ="%s"><a href ="/post">提问</a></li>
+         '''%(index,post)
         return data

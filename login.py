@@ -3,6 +3,7 @@
 #  * Created by Benjamin on 2017/9/7
 #  */
 import time
+import json
 import web
 from model.plugins import *
 from model.model import *
@@ -19,9 +20,20 @@ urls = (
     '/reg','Reg',
     '/activation','Activation',
     '/logout','Logout',
+    '/test/(\d+)','QuestionTest',
 )
 
 render = web.template.render("templates")
+
+class QuestionTest(object):
+    def GET(self,s):
+        username = session.username
+        data = db.query("select * from question where id='%s'"%s)
+        if not data:
+            return render.public(render.head(username), '<h3>该问题不存在或已被删除</h3>')
+        else:
+            content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
+            return json.dumps(content)
 
 class Index(object):
     def GET(self):
@@ -84,15 +96,31 @@ class Question(object):
         if not data:
             return render.public(render.head(username), '<h3>该问题不存在或已被删除</h3>')
         else:
+
             data = data[0]
             click = data.get('click') + 1
             db.query("update question  set click='%s' where id='%s'"%(click,s))
             data = db.query("select * from question where id='%s'" % s)
             data = data[0]
-            return render.question(render.head(username),data)
+
+            content = db.query("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
+            ret = {'data':data,'content':content}
+
+            return render.question(render.head(username),ret)
+
     def POST(self,s):
         username = session.username
-        return render.public(render.head(username), '<h3>回复功能已经关闭,请稍后再试</h3>')
+        if username:
+
+            content = web.input().get('content')
+            content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ','&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+
+            times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+            data = db.query("insert into question_content(id,content,fbtime,title_id,content_user) values (NULL,'%s','%s','%s','%s')"%(content,times,s,username))
+
+            raise web.seeother('/question/%s' %s)
+        else:
+            raise web.seeother('/login')
 
 class Search(object):
     def GET(self):
