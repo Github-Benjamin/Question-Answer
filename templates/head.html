@@ -7,9 +7,10 @@ $def with(username='',con='')
 		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
 		<script type="text/javascript" src="/static/js/jquery-3.1.1.min.js" ></script>
 		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/main.js"></script>
 	</head>
 	<body>
-		<nav class="nav navbar-default" role="navigotion">
+		<nav class="nav navbar-default" role="navigotion"  style="background: black">
 			<div class="container-fluid">
 				<div class="navbar-header">
 				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +24,8 @@ $def with(username='',con='')
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="/">首页</a></li>
+						<!--<li class="active"><a href="/">首页</a></li>-->
+						<li ><a href="/">首页</a></li>
 						<li><a href="/post">提问</a></li>
 						$if username:
 							<li><a href="/user">个人中心</a></li>
@@ -40,7 +42,7 @@ $def with(username='',con='')
 								<a href="/login" class="navbar-link">登录</a>/
 								<a href="/reg" class="navbar-link">注册</a>
 								<input type="text" name="kw" class="form-control" required="required" placeholder="请输入关键字"/>
-								<button class="btn btn-">搜 索</button>
+								<button class="btn btn-primary" >搜 索</button>
 						</div>
 					</form>
 				</div>

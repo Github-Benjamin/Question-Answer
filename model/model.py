@@ -3,10 +3,11 @@
 import MySQLdb
 import time
 from plugins import *
+# import jieba
 
 con_dict = dict(host='127.0.0.1', port=3306, user='root', passwd='', db='question', charset='utf8')
 
-# 数据库公告函数
+# 数据库公共函数
 def InsertMysql(sql,params):
     conn = MySQLdb.connect(**con_dict)
     cursor = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
@@ -36,7 +37,7 @@ def PageData(page):
         start = (int(page) - 1) * 5
     except :
         start = 0
-    sql = 'SELECT * from question LIMIT %s,%s' % (start, 5)
+    sql = 'SELECT * from question ORDER BY id DESC LIMIT %s,%s' % (start, 5)
     return SelectMysql(sql)
 
 # 页码显示规则
@@ -110,7 +111,7 @@ def Activations(email,ticket):
 def Puts(title,content,username):
     times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     # 字符处理防止JS注入
-    #content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ', '&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+    content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ', '&nbsp;').replace('	', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
     sql = "insert into question(id,title,content,fbtime,click,keywords,username) values(NULL,'%s','%s','%s',%s,'%s','%s')" % (title, content, time.strftime('%Y-%m-%d'), 1, username, username)
     SelectMysql(sql)
     sql = "SELECT * FROM question WHERE title = '%s' and username = '%s' ORDER BY id DESC LIMIT 1"%(title,username)

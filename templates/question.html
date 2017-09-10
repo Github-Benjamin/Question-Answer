@@ -13,7 +13,7 @@ $:head
 							</small>
 						</p>
 						<p class="text-muted">
-							$data.get('data').content
+							$:data.get('data').content
 						</p>
 						<p>
 					$for n in data.get('data').keywords.split(','):
@@ -46,8 +46,10 @@ $:head
 			</div>
 		</div>
 	</form>
+
 	<div style="height: 50px"></div>
-		<div class="footer navbar-fixed-bottom"  >
+		<div class="footer navbar-fixed-bottom"  style="background: black">
+			<div style="height: 15px"></div>
 			<ul class="list-inline text-center">
 				<li>Copyright ©2017.Benjamin Software All Rights Reserved.</li>
 			</ul>
@@ -55,8 +57,3 @@ $:head
 	<div style="height: 15px"></div>
 
 </div>
-
-<script src="/static/js/jquery-3.1.1.min.js"></script>
-<script src="/static/js/main.js"></script>
-
-

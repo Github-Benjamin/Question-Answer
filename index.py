@@ -20,20 +20,10 @@ urls = (
     '/reg','Reg',
     '/activation','Activation',
     '/logout','Logout',
-    '/test/(\d+)','QuestionTest',
+    '/questiondata/(\d+)','QuestionData',
 )
 
 render = web.template.render("templates")
-
-class QuestionTest(object):
-    def GET(self,s):
-        username = session.username
-        data = db.query("select * from question where id='%s'"%s)
-        if not data:
-            return render.public(render.head(username), '<h3>该问题不存在或已被删除</h3>')
-        else:
-            content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
-            return json.dumps(content)
 
 class Index(object):
     def GET(self):
@@ -121,6 +111,16 @@ class Question(object):
             raise web.seeother('/question/%s' %s)
         else:
             raise web.seeother('/login')
+
+class QuestionData(object):
+    def GET(self,s):
+        username = session.username
+        data = db.query("select * from question where id='%s'"%s)
+        if not data:
+            return render.public(render.head(username), '<h3>该问题不存在或已被删除</h3>')
+        else:
+            content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
+            return json.dumps(content)
 
 class Search(object):
     def GET(self):
@@ -210,6 +210,9 @@ if __name__ == "__main__":
     db = web.database(dbn='mysql', host='127.0.0.1', port=3306, user='root', pw='', db='question', charset='utf8')
     session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'username': None})
     app.run()
+
+
+
 
 # web.config.debug = False
 # web.config.session_parameters['timeout'] = 10*60

@@ -63,7 +63,7 @@ var Page = function (pagenum,page) {
 
 // pageconf url后面的参数 Npage 访问的页数
 var Refreshs = function (pageconf,Npage) {
-    var url = '/test/'+pageconf;
+    var url = '/questiondata/'+pageconf;
     var a = Npage*5
     if(Npage==1){
         var startNum = 0;
@@ -78,6 +78,11 @@ var Refreshs = function (pageconf,Npage) {
         url: url,
         dataType:'json',
         success: function(data){
+
+            if(data==""){
+                $(".content-box").append("<div style='height: 15px'></div><h4>&nbsp;&nbsp;&nbsp;&nbsp;该问题还没有任何用人回答，小哥哥、小姐姐们回复一个呗！(⊙o⊙)…</h4>");
+            }
+
             var dataLenth = data.length;
             if(endNum>=dataLenth){
                  endNum = dataLenth;
@@ -91,11 +96,19 @@ var Refreshs = function (pageconf,Npage) {
                 content = data[i]["content"]
                 user = data[i]["content_user"]
                 fbtime = data[i]["fbtime"]
-                htmldata += '<div class="jsonadd"><br>&nbsp;&nbsp;&nbsp;&nbsp;'+user+'&nbsp;&nbsp;'+fbtime+'<br>&nbsp;&nbsp;&nbsp;&nbsp;内容： '+ content+ '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none">回复</a><br></div>'
+                htmldata += '<div class="jsonadd"><br>&nbsp;&nbsp;&nbsp;&nbsp;'+user+'&nbsp;&nbsp;'+fbtime+'<br>&nbsp;&nbsp;&nbsp;&nbsp;内容： '+ content+ '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" class="clickzan">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a><br></div>'
             }
             $(".jsonadd").remove();
             $(".content-box").append(htmldata);
             Page(dataLenth,Npage);
+
+            $(".clickzan").click(function () {
+                alert("点赞功能尚未开发");
+            });
+
+            $(".clickhuifu").click(function () {
+                alert("叠楼功能尚未开发");
+            });
         }
     });
 }
@@ -107,3 +120,5 @@ function Getid(obj){
     Npage = value
     Refreshs(pageconf,Npage);
 }
+
+
