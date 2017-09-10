@@ -25,7 +25,17 @@ urls = (
 
 render = web.template.render("templates")
 
+def checklogin(func):
+    def apps(*args,**kwargs):
+        username = session.username
+        if username:
+          return  func(*args,**kwargs)
+        else:
+            return render.login(render.head())
+    return apps
+
 class Index(object):
+    @checklogin
     def GET(self):
         username = session.username
         if username:
