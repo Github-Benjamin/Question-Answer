@@ -25,6 +25,7 @@ urls = (
 
 render = web.template.render("templates")
 
+# 装饰器函数
 def checklogin(func):
     def apps(*args,**kwargs):
         username = session.username
@@ -35,7 +36,6 @@ def checklogin(func):
     return apps
 
 class Index(object):
-    @checklogin
     def GET(self):
         username = session.username
         if username:
@@ -52,12 +52,9 @@ class Page(object):
             return render.index(render.head(),PageData(page),PageNum(page))
 
 class Post(object):
+    @checklogin
     def GET(self):
-        username = session.username
-        if username:
-            return render.put(render.head(session.username))
-        else:
-            return render.login(render.head())
+        return render.put(render.head(session.username))
 
 class Put(object):
     def POST(self):
@@ -220,8 +217,6 @@ if __name__ == "__main__":
     db = web.database(dbn='mysql', host='127.0.0.1', port=3306, user='root', pw='', db='question', charset='utf8')
     session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'username': None})
     app.run()
-
-
 
 
 # web.config.debug = False

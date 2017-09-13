@@ -82,7 +82,7 @@ def PageNum(page):
         else:
             pagedata += ('<li><a href="/page/%s">%s</a></li>' % (i, i))
     data = '''<li><a href="/page/%s">&laquo;</a></li>
-              %s
+              %s发
               <li><a href="/page/%s">&raquo;</a></li>'''%(pgup,pagedata,pgdn)
     return data
 
