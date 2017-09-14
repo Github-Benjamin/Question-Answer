@@ -65,6 +65,15 @@ def userdata(page):
     sql = 'SELECT * from user ORDER BY id DESC LIMIT %s,%s' % (start, 10)
     return SelectMysql(sql)
 
+# 查询单个主题、内容
+def titleds(id):
+    try:
+        sql = "select * from question where id=%s"%(id)
+        data =  SelectMysql(sql)[0]
+        return json.dumps(data)
+    except Exception,e:
+        print e
+
 # 页码显示规则
 def PageNum(page,sqlname,apiname):
     page = int(page)
@@ -118,11 +127,12 @@ def uphuifus(id,content):
     except:
         return 0
 
-# 查询单个主题、内容
-def titleds(id):
+# 修改主题内容
+def uptitles(id,title,content):
     try:
-        sql = "select * from question where id=%s"%(id)
-        data =  SelectMysql(sql)[0]
-        return json.dumps(data)
+        sql = "update question set  title='%s',content='%s' where id=%s" % (title,content, id)
+        SelectMysql(sql)
+        return 1
     except Exception,e:
         print e
+        return 0

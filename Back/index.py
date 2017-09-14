@@ -51,7 +51,15 @@ class Title(object):
     def GET(self,page):
         return render.title(titledata(page), PageNum(page,'question','title'))
     def POST(self,page):
-        return
+        data = web.input()
+        id,title,content = data.get('id'),data.get('titlename'),data.get('titlecontent')
+        if id and content and title:
+           if uptitles(id,title,content):
+               raise web.seeother('/title/%s'%page)
+           else:
+               return 'error'
+        else:
+            return 'error'
 
 class Titled(object):
     def GET(self):
