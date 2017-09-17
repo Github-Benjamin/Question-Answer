@@ -10,36 +10,32 @@
 </head>
 <body>
 
+
+
     <nav class="nav navbar-inverse" role="navigotion" style="background:black">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascrpt:;" class="navbar-brand">Python论坛管理后台</a>
-            </div>
-
-            <button class="navbar-toggle navbar-center" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <ul class="nav navbar-nav  navbar-right" style="width: 160px">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span>Admin(超级管理员)<b class="caret"></b></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!--<li><a href="javascript:;"  data-toggle="modal" data-target="#myModal">个人信息</a></li>-->
-                        <li><a href="javascript:;"  class="userinfo">个人信息</a></li>
-                        <li><a href="javascript:;" class="xiugai">修改密码</a></li>
-                        <li><a href="/logout">退出</a></li>
-                        <!--<li class="divider"></li>-->
-                        <!--<li><a href="#">分离的链接</a></li>-->
-                    </ul>
-                </li>
-            </ul>
-
+        <div class="navbar-header">
+            <a href="javascrpt:;" class="navbar-brand">Python论坛管理后台</a>
+        </div>
+        <ul class="nav navbar-nav  navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Admin(超级管理员)<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <!--<li><a href="javascript:;"  data-toggle="modal" data-target="#myModal">个人信息</a></li>-->
+                    <li><a href="javascript:;"  class="userinfo">个人信息</a></li>
+                    <li><a href="javascript:;" class="xiugai">修改密码</a></li>
+                    <li><a href="/logout">退出</a></li>
+                    <!--<li class="divider"></li>-->
+                    <!--<li><a href="#">分离的链接</a></li>-->
+                </ul>
+            </li>
+        </ul>
         </div>
     </nav>
+
+
 
     <!--<div class="navbar navbar-duomi navbar-static-top" role="navigation">-->
         <!--<div class="container-fluid">-->
@@ -52,10 +48,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <ul id="main-nav" class="nav nav-tabs nav-stacked collapse navbar-collapse">
+                <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
                     <li class="active">
                         <a href="#" class="addmeu"><i class="glyphicon glyphicon-th-large"></i>首页</a>
                     </li>
+
                     <li><a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse"><i class="glyphicon glyphicon-cog"></i>&nbsp;系统管理<span class="pull-right glyphicon glyphicon-chevron-down"></span></a>
                         <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
                             <li class="addmeu" data-href="/user/1"><a href="#">&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-user"></i>&nbsp;用户管理</a></li>
@@ -106,7 +103,10 @@
 
     </div>
 
-    <div class="modal fade" style="margin-top: 5%" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+
+    <div class="modal fade" style="margin-top: 100px" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,7 +116,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="txt_departmentname">部门名称</label>
-                        <select class="form-control" style="width: auto">
+                        <select class="form-control">
                           <option>开发部</option>
                           <option>产品部</option>
                           <option>运营部</option>
@@ -134,8 +134,8 @@
                         <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="邮箱账号"  value="qiang.qian@downjoy.com">
                     </div>
                     <div class="form-group">
-                       <label for="txt_statu">状态</label>
-                        <select class="form-control" style="width: auto">
+                       <label for="txt_statu">描述</label>
+                        <select class="form-control">
                           <option>启用</option>
                           <option>停用</option>
                         </select>
@@ -150,7 +150,9 @@
         </div>
     </div>
 
-    <div class="modal fade" style="margin-top: 5%" id="UPPassWord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+    <div class="modal fade" style="margin-top: 100px" id="UPPassWord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

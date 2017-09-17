@@ -46,20 +46,26 @@ class Login(object):
 class User(object):
     def GET(self,page):
         return render.user(userdata(page), PageNum(page, 'user', 'user'))
+    def POST(self,page):
+        data = web.input()
+        id,username,email,status = data.get('id'),data.get('username'),data.get('email'),data.get('status')
+        return render.user(screenuser(id,username,email,status), PageNum(page, 'user', 'user'))
 
 class Title(object):
     def GET(self,page):
         return render.title(titledata(page), PageNum(page,'question','title'))
     def POST(self,page):
         data = web.input()
-        id,title,content = data.get('id'),data.get('titlename'),data.get('titlecontent')
-        if id and content and title:
-           if uptitles(id,title,content):
+        id,titlename,titlecontent,title,username = data.get('id'),data.get('titlename'),data.get('titlecontent'),data.get('title'),data.get('username')
+        if id and titlename and titlecontent:
+           if uptitles(id,titlename,titlecontent):
                raise web.seeother('/title/%s'%page)
            else:
                return 'error'
+        if id or title or username:
+            return  render.title(screentitle(id,title,username), PageNum(page,'question','title'))
         else:
-            return 'error'
+            return render.title(titledata(page), PageNum(page, 'question', 'title'))
 
 class Titled(object):
     def GET(self):
@@ -73,12 +79,15 @@ class Huifu(object):
         return render.huifu(huifudata(page),PageNum(page,'question_content','huifu'))
     def POST(self,page):
         data = web.input()
-        id,content = data.get('id'),data.get('content')
+        id,content,title,content_user = data.get('id'),data.get('content'),data.get('title'),data.get('content_user')
         if id and content:
            if uphuifus(id,content):
                raise web.seeother('/huifu/%s'%page)
            else:
                return 'error'
+        if id or title or content_user:
+            return screenhuifu(id,title,content_user)
+        return screenhuifu(id, title, content_user)
 
 class Tubiao(object):
     def GET(self):

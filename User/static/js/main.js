@@ -10,7 +10,6 @@ var Npage = 1;
 
 // pagenum 总页数 page 当前页数
 var Page = function (pagenum,page) {
-
     // 向上取整,有小数就整数部分加1,计算总页数
     var temp = Math.ceil(pagenum/5);
     if (temp<7){
@@ -58,7 +57,6 @@ var Page = function (pagenum,page) {
     }else {
         return
     }
-
 }
 
 // pageconf url后面的参数 Npage 访问的页数
@@ -105,7 +103,6 @@ var Refreshs = function (pageconf,Npage) {
             $(".clickzan").click(function () {
                 alert("点赞功能尚未开发");
             });
-
             $(".clickhuifu").click(function () {
                 alert("叠楼功能尚未开发");
             });
