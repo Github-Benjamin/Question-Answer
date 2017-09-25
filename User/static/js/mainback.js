@@ -88,39 +88,14 @@ var Refreshs = function (pageconf,Npage) {
                 endNum = endNum+1;
             }
 
-            var htmldata = '<ul class="media-list">'
-
+            var htmldata = ''
             for(var i=startNum;i<endNum;i++){
                 i = parseInt(i);
                 content = data[i]["content"]
                 user = data[i]["content_user"]
                 fbtime = data[i]["fbtime"]
-
-                var ChileContent = data[i]["ChileContent"]
-
-                // htmldata += '<li class="media" style="margin: 10px auto 10px auto"><div class="media-left"></div><div class="media-body"><p>'+user+' 回复：'+content+' '+fbtime+'</p></div>'
-
-                if(ChileContent){
-                        htmldata += '<li class="media" style="margin: 10px auto 10px auto"><div class="media-body"><div class="media-left"></div><div class="media-body"><p>'+user+' 回复：'+content+' '+fbtime+'</p>'
-                        htmldata += '<div class="media">'
-                       for(var j=0;j<ChileContent.length;j++){
-                           var ChileContentcontent_user  = ChileContent[j]["content_user"]
-                           var ChileContentfbtime  = ChileContent[j]["fbtime"]
-                           var ChileContentmain_user  = ChileContent[j]["main_user"]
-                           var ChileContentcontent  = ChileContent[j]["content"]
-                           htmldata += '<div><div class="media-left"></div><div class="media-body"><p>&nbsp;&nbsp;&nbsp;&nbsp;'+ChileContentcontent_user+' 回复 '+ChileContentmain_user+'：'+ChileContentcontent+' '+ChileContentfbtime+'</a>&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a></p></div></div>'
-                       }
-                        htmldata += '</div>'
-                }else {
-                        htmldata += '<li class="media" style="margin: 10px auto 10px auto"><div class="media-left"></div><div class="media-body"><p>'+user+' 回复：'+content+' '+fbtime+'</p></div>'
-                }
-
-                htmldata +='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" class="clickzan">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a><br></li><div style="border: 1px dashed #ddd;"></div>'
-
+                htmldata += '<div class="jsonadd"><br>&nbsp;&nbsp;&nbsp;&nbsp;'+user+'&nbsp;&nbsp;'+fbtime+'<br>&nbsp;&nbsp;&nbsp;&nbsp;内容： '+ content+ '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" class="clickzan">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a><br></div>'
             }
-            htmldata += '</ul>'
-
-
             $(".jsonadd").remove();
             $(".content-box").append(htmldata);
             Page(dataLenth,Npage);

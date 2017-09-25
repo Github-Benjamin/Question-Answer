@@ -126,8 +126,9 @@ class QuestionData(object):
         if not data:
             return render.public(render.head(username), '<h3>该问题不存在或已被删除</h3>')
         else:
-            content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
-            return json.dumps(content)
+            # content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC"%s)
+            # return json.dumps(content)
+            return ChileContent(s)
 
 class Search(object):
     def GET(self):

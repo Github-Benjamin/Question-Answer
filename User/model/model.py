@@ -2,7 +2,9 @@
 #  * Created by Benjamin on 2017/7/17
 import MySQLdb
 import time
+import json
 from plugins import *
+
 # import jieba
 
 con_dict = dict(host='127.0.0.1', port=3306, user='root', passwd='', db='question', charset='utf8')
@@ -26,6 +28,19 @@ def SelectMysql(sql):
     conn.commit()
     conn.close()
     return  data
+
+# 评论回复内容
+
+def ChileContent(page):
+    content = SelectMysql("select * from question_content where title_id = %s  ORDER BY id DESC" % page)
+    for i in content:
+        sql = "select * from content_in_content where content_id = %s"%i.get("id")
+        data = SelectMysql(sql)
+        if data:
+            i.setdefault("ChileContent",data)
+        else:
+            i.setdefault("ChileContent", None)
+    return json.dumps(content)
 
 # 页码数据
 def PageData(page):
