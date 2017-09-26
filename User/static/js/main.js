@@ -78,7 +78,7 @@ var Refreshs = function (pageconf,Npage) {
         success: function(data){
 
             if(data==""){
-                $(".content-box").append("<div style='height: 15px'></div><h4>&nbsp;&nbsp;&nbsp;&nbsp;该问题还没有任何用人回答，小哥哥、小姐姐们回复一个呗！(⊙o⊙)…</h4>");
+                $(".content-box").append('<div style="height: 15px"></div><h4>&nbsp;&nbsp;&nbsp;&nbsp;该问题还没有任何用人回答，小哥哥、小姐姐们回复一个呗！(⊙o⊙)…</h4><br><div style="border: 1px dashed #ddd;"></div>');
             }
 
             var dataLenth = data.length;
@@ -95,6 +95,7 @@ var Refreshs = function (pageconf,Npage) {
                 content = data[i]["content"]
                 user = data[i]["content_user"]
                 fbtime = data[i]["fbtime"]
+                content_id = data[i]["id"]
 
                 var ChileContent = data[i]["ChileContent"]
 
@@ -108,14 +109,14 @@ var Refreshs = function (pageconf,Npage) {
                            var ChileContentfbtime  = ChileContent[j]["fbtime"]
                            var ChileContentmain_user  = ChileContent[j]["main_user"]
                            var ChileContentcontent  = ChileContent[j]["content"]
-                           htmldata += '<div><div class="media-left"></div><div class="media-body"><p>&nbsp;&nbsp;&nbsp;&nbsp;'+ChileContentcontent_user+' 回复 '+ChileContentmain_user+'：'+ChileContentcontent+' '+ChileContentfbtime+'</a>&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a></p></div></div>'
+                           htmldata += '<div><div class="media-left"></div><div class="media-body"><p>&nbsp;&nbsp;&nbsp;&nbsp;'+ChileContentcontent_user+' 回复 '+ChileContentmain_user+'：'+ChileContentcontent+' '+ChileContentfbtime+'</a>&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu" data-id="'+content_id+'" data-main-user="'+ChileContentcontent_user+'">回复</a></p></div></div>'
                        }
                         htmldata += '</div>'
                 }else {
                         htmldata += '<li class="media" style="margin: 10px auto 10px auto"><div class="media-left"></div><div class="media-body"><p>'+user+' 回复：'+content+' '+fbtime+'</p></div>'
                 }
 
-                htmldata +='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" class="clickzan">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu">回复</a><br></li><div style="border: 1px dashed #ddd;"></div>'
+                htmldata +='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" class="clickzan">点赞（10）</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"  style="text-decoration:none" class="clickhuifu" data-main-user="'+user+'" data-id="'+content_id+'">回复</a><br></li><div style="border: 1px dashed #ddd;"></div>'
 
             }
             htmldata += '</ul>'
@@ -128,9 +129,16 @@ var Refreshs = function (pageconf,Npage) {
             $(".clickzan").click(function () {
                 alert("点赞功能尚未开发");
             });
+
             $(".clickhuifu").click(function () {
-                alert("叠楼功能尚未开发");
+                // alert("叠楼功能尚未开发");
+                $("#myModal").modal();
+                var id= $(this).attr("data-id");
+                var main_user= $(this).attr("data-main-user");
+                $("#content_id").val(id);
+                $("#main_user").val(main_user);
             });
+
         }
     });
 }

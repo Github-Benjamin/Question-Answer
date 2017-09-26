@@ -69,38 +69,39 @@ $:head
 							</div>
 				</div>
 			</div>
-
 		</div>
 
-<!--<ul class="media-list">-->
-	<!--<li class="media">-->
-		<!--<div class="media-left">-->
-			<!--<img src="#" style="width: 80px" alt="" class="media-object">-->
-		<!--</div>-->
-		<!--<div class="media-body">-->
-			<!--<h4 class="media-heading">内容标题</h4>-->
-			<!--<p>测试内容</p>-->
-				<!--<div class="media">-->
-					<!--<div class="media-left">-->
-						<!--<img src="#" style="width: 80px" alt="" class="media-object">-->
-					<!--</div>-->
-					<!--<div class="media-body">-->
-						<!--<h4 class="media-heading">内容标题</h4>-->
-						<!--<p>测试内容</p>-->
-					<!--</div>-->
-				<!--</div>-->
-		<!--</div>-->
-	<!--</li>-->
-	<!--<li class="media">-->
-		<!--<div class="media-left">-->
-			<!--<img src="#" style="width: 80px" alt="" class="media-object">-->
-		<!--</div>-->
-		<!--<div class="media-body">-->
-			<!--<h4 class="media-heading">内容标题</h4>-->
-			<!--<p>测试内容</p>-->
-		<!--</div>-->
-	<!--</li>-->
-<!--</ul>-->
+
+<div class="modal fade" style="margin-top: 5%" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="UPPassWordLabe">回贴操作</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form" id="add-key-form"  method="post">
+                                <div class="form-group">
+                                    <label for="content_id">ID</label>
+                                    <input type="text" name="content_id" class="form-control" id="content_id" placeholder="ID" readonly="readonly">
+                                </div>
+                                 <div class="form-group">
+                                    <label for="main_user">被回复人</label>
+                                    <input type="text" name="main_user" class="form-control" id="main_user" placeholder="被回复人" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label for="content_content">评论内容</label>
+                                    <textarea  type="text" name="content_content" class="form-control" id="content_content" placeholder="评论内容" style="height: 100px"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                    <button type="submit" id="btn_submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+        </div>
+</div>
 
 
 

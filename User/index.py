@@ -108,14 +108,22 @@ class Question(object):
     def POST(self,s):
         username = session.username
         if username:
+                content = web.input().get('content')
+                times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+                if content:
+                    content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ','&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+                    data = db.query("insert into question_content(id,content,fbtime,title_id,content_user) values (NULL,'%s','%s','%s','%s')"%(content,times,s,username))
+                    raise web.seeother('/question/%s' %s)
 
-            content = web.input().get('content')
-            content = content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ','&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+                content_content = web.input().get('content_content')
+                if content_content:
+                    content_content = content_content.replace('<', '&#60;').replace('>', '&#62;').replace('\r', '<br>').replace(' ','&nbsp;').replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;').replace("'", "&#39;").replace('"', '&#34;')
+                    main_user = web.input().get('main_user')
+                    print main_user
+                    content_id = web.input().get('content_id')
+                    data = db.query("insert into content_in_content(id,content,fbtime,content_id,content_user,main_user) values (NULL,'%s','%s','%s','%s','%s')" % (content_content, times, content_id, username,main_user))
+                    raise web.seeother('/question/%s' % s)
 
-            times = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-            data = db.query("insert into question_content(id,content,fbtime,title_id,content_user) values (NULL,'%s','%s','%s','%s')"%(content,times,s,username))
-
-            raise web.seeother('/question/%s' %s)
         else:
             raise web.seeother('/login')
 
